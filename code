@@ -1,0 +1,28 @@
+#pragma config(Sensor, dgtl6,  touchSensor,         sensorTouch)
+#pragma config(Motor,  port2,           rightMotor,    tmotorNormal, openLoop, reversed)
+#pragma config(Motor,  port3,           leftMotor,     tmotorNormal, openLoop)
+
+task main ()
+{
+while (true)
+{
+motor [leftMotor] = 63;                     //robot moves forward forever//
+motor [rightMotor] = 63;
+
+if(SensorValue(touchSensor) == 1)         //if touch sensor (bumper switch) is pushed then it will equal
+{                                        1 and the robot will do the follow code//
+motor[leftMotor] = 0;                  
+motor[rightMotor] = 0;                   //this part of the code make the robot's motors turn of for 0.5seconds//
+wait1Msec (500);
+
+motor[leftMotor] = -63;                //the motors make the robot move backwards for 1second//
+motor[rightMotor] = -63;
+wait1Msec(1000);
+
+motor[leftMotor] = 63;                 //the left motor drives forward and the right motor drives backwards,
+motor[rightMotor] = -63;               making the robot turn to the right (clockwise) for 0.5seconds//
+wait1Msec(500);
+
+}
+}
+}
